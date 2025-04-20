@@ -1,0 +1,14 @@
+{
+  "name": "project-backend",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "dockerode": "^4.0.5",
+    "express": "^5.1.0"
+  }
+}

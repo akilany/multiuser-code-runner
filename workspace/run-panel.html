@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Run Code</title>
+    <style>
+      body { font-family: sans-serif; padding: 2rem; }
+      textarea { width: 100%; height: 100px; margin-top: 1rem; }
+      pre { background: #111; color: #0f0; padding: 1rem; }
+    </style>
+  </head>
+  <body>
+    <h1>🧪 Run Code</h1>
+
+    <label>Filename:</label><br />
+    <input type="text" id="filename" value="main.py" style="width: 100%;"/>
+
+    <label>Language:</label><br />
+    <select id="language" style="width: 100%;">
+      <option value="python">Python</option>
+      <option value="javascript">JavaScript</option>
+      <option value="cpp">C++</option>
+    </select>
+
+    <button onclick="runCode()">▶️ Run</button>
+
+    <h3>Output:</h3>
+    <pre id="output">Click Run to see output...</pre>
+
+    <script>
+      async function runCode() {
+        const filename = document.getElementById("filename").value;
+        const language = document.getElementById("language").value;
+
+        const res = await fetch("http://localhost:3001/run", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ filename, language })
+        });
+
+        const data = await res.json();
+        document.getElementById("output").textContent = data.output || data.error;
+      }
+    </script>
+  </body>
+</html>

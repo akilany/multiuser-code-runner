@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  code-server:
+    build: ./code-server
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./workspace:/home/coder/project
+    environment:
+      - PASSWORD=dev123
+
+  backend:
+    build: ./backend
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./workspace:/app/workspace
+      - /var/run/docker.sock:/var/run/docker.sock  # 👈 allows backend to talk to Docker
+
+
+  # Optional: Add redis/job queue later if needed
