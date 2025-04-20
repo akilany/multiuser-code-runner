@@ -1,0 +1,23 @@
+version: '3.6'
+services:
+  code-server:
+    image: 687253468904.dkr.ecr.us-west-2.amazonaws.com/codebox-codeserver
+    build: ./code-server
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./workspace:/home/coder/project
+    environment:
+      - PASSWORD=dev123
+
+  node-server:
+    image: 687253468904.dkr.ecr.us-west-2.amazonaws.com/codebox-nodeserver
+    build: ./backend
+    env_file: .env
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./workspace:/app/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      NODE_ENV: ${NODE_ENV}

@@ -3,6 +3,10 @@ import fs from "fs";
 import path from "path";
 import { exec } from "child_process";
 import { fileURLToPath } from "url";
+import * as dotenv from "dotenv";
+
+dotenv.config();
+const HOST_PORT = process.env.HOST_PORT || 4000;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -163,4 +167,6 @@ app.post("/stop-session", (req, res) => {
   });
 });
 
-app.listen(3001, () => console.log("Backend running on http://localhost:3001"));
+app.listen(HOST_PORT, () =>
+  console.log(`Backend running on http://localhost:${HOST_PORT}`)
+);
