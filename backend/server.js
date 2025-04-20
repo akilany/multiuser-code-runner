@@ -127,7 +127,14 @@ app.post("/start-session", (req, res) => {
   fs.chmodSync(userVolume, 0o777); // ensure writable by container user
 
   const containerName = `code-${username}`;
-  const command = `docker run -d --name ${containerName} -p ${port}:8080 -v ${userVolume}:/home/coder/project -e PASSWORD=${username}-pass codercom/code-server:latest`;
+  const command = `docker run -d --name ${containerName} \
+  --network code-server_default \
+  --label com.docker.compose.project=code-server \
+  -p ${port}:8080 \
+  -v ${userVolume}:/home/coder/project \
+  -e PASSWORD=${username}-pass \
+  codercom/code-server:latest
+`;
 
   exec(command, (err, stdout, stderr) => {
     if (err) {
