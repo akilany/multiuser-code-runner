@@ -1,4 +1,4 @@
-name: RocketHire Prod Image Build
+name: Image Build
 
 on:
   workflow_dispatch:

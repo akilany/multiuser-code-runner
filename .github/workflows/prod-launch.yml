@@ -1,4 +1,4 @@
-name: RocketHire Prod Image Push
+name: Image Push
 
 on:
   workflow_dispatch:
